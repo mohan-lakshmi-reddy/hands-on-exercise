@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!--
+        Bean #1: BookRepository
+        Tells Spring: "create one instance of com.library.repository.BookRepository
+        and manage it under the name 'bookRepository'."
+        No constructor-arg needed here since BookRepository has a no-args constructor.
+    -->
+    <bean id="bookRepository" class="com.library.repository.BookRepository" />
+
+    <!--
+        Bean #2: BookService
+        Tells Spring: "create one instance of com.library.service.BookService,
+        and when calling its constructor, pass in the 'bookRepository' bean
+        defined above."
+        This is Dependency Injection happening declaratively in XML -
+        BookService never says `new BookRepository()` anywhere in Java code.
+    -->
+    <bean id="bookService" class="com.library.service.BookService">
+        <constructor-arg ref="bookRepository" />
+    </bean>
+
+</beans>
